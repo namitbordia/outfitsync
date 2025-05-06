@@ -18,36 +18,35 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: client/package-lock.json
+        cache-dependency-path: StyleAgent-1/client/package-lock.json
     
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
         cache: 'pip'
-        cache-dependency-path: server/requirements.txt
+        cache-dependency-path: StyleAgent-1/server/requirements.txt
     
     - name: Install client dependencies
-      working-directory: ./client
+      working-directory: ./StyleAgent-1/client
       run: npm ci
     
     - name: Install server dependencies
-      working-directory: ./server
+      working-directory: ./StyleAgent-1/server
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
     - name: Build client
-      working-directory: ./client
+      working-directory: ./StyleAgent-1/client
       run: npm run build
     
-    - name: Run client tests
-      working-directory: ./client
-      run: npm test
-      if: false  # Set to true when you have tests
+    - name: Run client linting
+      working-directory: ./StyleAgent-1/client
+      run: npm run lint
     
     - name: Run server tests
-      working-directory: ./server
+      working-directory: ./StyleAgent-1/server
       run: |
         python -m pytest
       if: false  # Set to true when you have tests
